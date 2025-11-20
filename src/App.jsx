@@ -1,8 +1,8 @@
-import Solutions from './Solution'
+import Trial from './Trial/Main'
 import './App.css'
 
 function App() {
-  return <Solutions />
+  return <Trial />
 }
 
 export default App

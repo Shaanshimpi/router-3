@@ -1,12 +1,6 @@
 import { Link } from 'react-router-dom'
 
 function StudentCard({ student, onDelete }) {
-  function handleDelete(event) {
-    event.preventDefault()
-    event.stopPropagation()
-    onDelete?.(student)
-  }
-
   return (
     <article className="student-card">
       <Link to={`/students/${student.id}`} className="student-card__link">
@@ -21,7 +15,8 @@ function StudentCard({ student, onDelete }) {
         </span>
       </Link>
 
-      <button className="danger-btn" onClick={handleDelete}>
+      {/* TODO: hook up the delete button by passing a function that calls your DELETE endpoint */}
+      <button className="danger-btn" onClick={() => onDelete?.(student)}>
         Delete
       </button>
     </article>
@@ -29,4 +24,5 @@ function StudentCard({ student, onDelete }) {
 }
 
 export default StudentCard
+
 

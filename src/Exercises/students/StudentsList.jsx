@@ -5,6 +5,8 @@ const API_URL = 'https://codehub-api-collections.vercel.app/api/students'
 
 function StudentsList() {
   const [students, setStudents] = useState([])
+
+  // Form fields are handled for you so learners can focus on the data flow.
   const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
   const [age, setAge] = useState('')
@@ -13,16 +15,12 @@ function StudentsList() {
   const [message, setMessage] = useState('')
 
   useEffect(() => {
-    async function fetchStudents() {
-      const response = await fetch(API_URL)
-      const data = await response.json()
-      setStudents(data.docs || [])
-    }
-
-    fetchStudents()
+    // TODO: Fetch students from API_URL and call setStudents with `data.docs`.
+    // Hint: use `const response = await fetch(API_URL)` inside an async function,
+    // then `const data = await response.json()` and finally `setStudents(data.docs || [])`.
   }, [])
 
-  async function handleCreateStudent(event) {
+  function handleCreateStudent(event) {
     event.preventDefault()
     setMessage('')
 
@@ -34,44 +32,30 @@ function StudentsList() {
       status,
     }
 
-    const response = await fetch(API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(newStudent),
-    })
-    if (!response.ok) {
-      setMessage('Could not create student.')
-      return
-    }
-    const created = await response.json()
-    setStudents([created, ...students])
-    setFullName('')
-    setEmail('')
-    setAge('')
-    setGrade('')
-    setStatus('active')
-    setMessage('Student created!')
+    // TODO: POST `newStudent` to API_URL.
+    // 1. Call fetch with method POST, JSON headers, and stringified body.
+    // 2. Parse the JSON response and place it at the start of the students array:
+    //    `setStudents([createdStudent, ...students])`.
+    // 3. Reset all form fields back to empty strings (and status to "active").
+    // 4. Show a friendly success message with setMessage.
   }
 
-  async function handleDeleteStudent(student) {
+  function handleDeleteStudent(student) {
     if (!window.confirm('Delete this student?')) {
       return
     }
 
-    const response = await fetch(`${API_URL}/${student.id}`, {
-      method: 'DELETE',
-    })
-    if (!response.ok) {
-      alert('Delete failed.')
-      return
-    }
-    setStudents(students.filter((item) => item.id !== student.id))
+    // TODO: Send a DELETE request to `${API_URL}/${student.id}`.
+    // After you get a good response back, filter that student out of the array:
+    // `setStudents(prev => prev.filter(item => item.id !== student.id))`.
   }
 
   return (
     <main className="students-page">
-      <h1>Students Directory</h1>
-      <p className="page-tagline">Create, edit, and delete CodeHub students.</p>
+      <h1>Students Directory (Exercise)</h1>
+      <p className="page-tagline">
+        Follow the inline TODOs to finish the CRUD flow.
+      </p>
 
       <section className="student-form-panel">
         <h2>Add a student</h2>
@@ -142,4 +126,5 @@ function StudentsList() {
 }
 
 export default StudentsList
+
 

@@ -1,21 +1,16 @@
 import { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const API_URL = 'https://codehub-api-collections.vercel.app/api/students'
 
 function StudentDetails() {
-  const { id } = useParams()
   const [student, setStudent] = useState(null)
 
   useEffect(() => {
-    async function fetchStudent() {
-      const response = await fetch(`${API_URL}/${id}`)
-      const data = await response.json()
-      setStudent(data)
-    }
-
-    fetchStudent()
-  }, [id])
+    // TODO: grab the id with `const { id } = useParams()`
+    // and fetch `${API_URL}/${id}` inside an async function.
+    // After you parse the JSON, call setStudent(data) so the summary card renders.
+  }, [])
 
   return (
     <main className="student-details-page">
@@ -45,11 +40,12 @@ function StudentDetails() {
           </p>
         </article>
       ) : (
-        <p>Loading student...</p>
+        <p>TODO: load a student and render their data here.</p>
       )}
     </main>
   )
 }
 
 export default StudentDetails
+
 
